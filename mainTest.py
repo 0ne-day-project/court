@@ -1,5 +1,6 @@
 from typing import TypedDict
 from langgraph.graph import StateGraph, START, END
+from nodes.fact_checker import fact_checker_node
 from nodes.supporter import supporter_node
 
 
@@ -38,7 +39,7 @@ def build_graph():
     # 노드 등록
     workflow.add_node("supporter", supporter_node)
     workflow.add_node("skeptic", mock_skeptic)
-    workflow.add_node("fact_checker", mock_fact_checker)
+    workflow.add_node("fact_checker", fact_checker_node)
     workflow.add_node("judge", mock_judge)
 
     # 엣지(흐름) 연결
