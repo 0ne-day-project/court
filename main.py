@@ -1,6 +1,7 @@
 from typing import TypedDict
 from langgraph.graph import StateGraph, START, END
-
+from langchain_openai import ChatOpenAI
+import os
 # [팀원들의 진짜 노드 함수 불러오기]
 # 팀원들이 nodes 폴더 안의 각 파일에 '본인역할_node'라는 이름으로 함수를 짰다고 가정함
 from nodes.supporter import supporter_node
