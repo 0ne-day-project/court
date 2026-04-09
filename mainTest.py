@@ -1,6 +1,8 @@
 from typing import TypedDict
 from langgraph.graph import StateGraph, START, END
 from nodes.fact_checker import fact_checker_node
+from nodes.supporter import supporter_node
+
 
 class DebateState(TypedDict):
     topic: str               # 사용자 입력 주제
@@ -13,9 +15,6 @@ class DebateState(TypedDict):
 # 2. 배관 테스트용 가짜(Mock) 노드들
 # (나중에 팀원들이 진짜 LLM 연동 코드를 짜오면 여기를 교체함)
 # ==========================================
-def mock_supporter(state: DebateState):
-    print("[실행 중] Supporter가 찬성 논리를 생성합니다...")
-    return {"supporter_args": "찬성 근거: 업무 효율성 증가, 직원 만족도 향상 (임시 데이터)"}
 
 def mock_skeptic(state: DebateState):
     print("[실행 중] Skeptic이 반대 논리를 생성합니다...")
@@ -38,7 +37,7 @@ def build_graph():
     workflow = StateGraph(DebateState)
 
     # 노드 등록
-    workflow.add_node("supporter", mock_supporter)
+    workflow.add_node("supporter", supporter_node)
     workflow.add_node("skeptic", mock_skeptic)
     workflow.add_node("fact_checker", fact_checker_node)
     workflow.add_node("judge", mock_judge)
