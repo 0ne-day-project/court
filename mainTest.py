@@ -1,6 +1,6 @@
 from typing import TypedDict
 from langgraph.graph import StateGraph, START, END
-
+from nodes.fact_checker import fact_checker_node
 
 class DebateState(TypedDict):
     topic: str               # 사용자 입력 주제
@@ -40,7 +40,7 @@ def build_graph():
     # 노드 등록
     workflow.add_node("supporter", mock_supporter)
     workflow.add_node("skeptic", mock_skeptic)
-    workflow.add_node("fact_checker", mock_fact_checker)
+    workflow.add_node("fact_checker", fact_checker_node)
     workflow.add_node("judge", mock_judge)
 
     # 엣지(흐름) 연결
