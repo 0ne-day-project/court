@@ -3,14 +3,18 @@ from typing import List
 
 from langchain_groq import ChatGroq
 from langchain_community.retrievers import TavilySearchAPIRetriever
+from langchain_openai import ChatOpenAI
+
 from dotenv import load_dotenv
+from court.schema import DebateState
+
 
 load_dotenv()
 
-# Groq LLM
-llm = ChatGroq(
-    model="openai/gpt-oss-20b",
-    temperature=0
+llm = ChatOpenAI(
+        temperature=0.2,
+        model_name="gpt-5-mini",
+        openai_api_key=os.getenv("OPENAI_API_KEY")
 )
 
 # Tavily Retriever

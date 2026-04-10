@@ -1,23 +1,17 @@
-"""
-Supporter 에이전트 (소희 담당)
-- Tavily로 근거 검색 후 찬성 논리 생성
-- 설득력 있는 근거 작성
-- "이게 왜 맞는지" 담당
-"""
 import os
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from tavily import TavilyClient
+from court.schema import DebateState
 
 # 환경 변수 로드
 load_dotenv()
 
 # LLM 초기화 (OpenRouter)
 llm = ChatOpenAI(
-    model="stepfun/step-3.5-flash:free",
+    model="gpt-5-mini",
     api_key=os.getenv("OPENAI_API_KEY"),
-    base_url=os.getenv("OPENAI_API_BASE")
 )
 
 # Tavily 검색 클라이언트
@@ -61,11 +55,9 @@ SUPPORTER_PROMPT = ChatPromptTemplate.from_messages([
 supporter_chain = SUPPORTER_PROMPT | llm
 
 
-def supporter_node(state: dict) -> dict:
+def supporter_node(state: DebateState) -> dict:
     """
     Supporter 노드 함수
-    1. Tavily로 주제 관련 근거 검색
-    2. 검색 결과를 바탕으로 LLM이 찬성 논리 생성
     """
     print("🟢 [실행 중] 소희(Supporter)가 찬성 논리를 생성합니다...")
 
